@@ -57,16 +57,16 @@ def countComments(parsed, obj=None):
 		obj['commentcount'] += len(parsed)
 	else:
 		obj = {'commentcount': len(parsed)}
-	
+
 	for comment in parsed:
 		if len(comment['replies']) > 0:
 			countComments(comment['replies'], obj)
-	
+
 	return obj['commentcount']
 
 def downloadCommentsSection(json_url):
 	data = requests.get(json_url, headers={'User-Agent': 'ripperino/1.0'}).json()
-	with open('temporary.json','wb') as f:
+	with open('temporary.json','w') as f:
 		json.dump(data,f)
 
 	parsed = []
